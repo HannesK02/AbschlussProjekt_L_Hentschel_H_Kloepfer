@@ -1,0 +1,26 @@
+Pakete hinzufügen
+
+1.  pdm add paketname
+2.  pdm export -o requirements.txt --without-hashes
+
+
+
+
+Conventional Commits
+
+git commit -m "docs: add shared project notes"                          --> Änderungen an Dokumentation, Notizen oder README-Dateien
+git commit -m "feat: add gps data processing"                           --> Hinzufügen einer neuen Funktion
+git commit -m "feat: add streamlit file upload"                         --> Hinzufügen einer neuen Funktion
+git commit -m "feat: add battery simulation"                            --> Hinzufügen einer neuen Funktion
+git commit -m "fix: prevent battery soc below zero"                     --> Beheben eines Fehlers
+git commit -m "docs: update project documentation"                      --> Aktualisieren der Dokumentation
+git commit -m "chore: initialize project structure and requirements"    --> Änderungen an Projektstruktur, Setup oder Abhängigkeiten
+git commit -m "test: add gps data tests"                                --> Hinzufügen oder Ändern von Tests
+git commit -m "refactor: split gps calculations into methods"           --> Umstrukturieren von Code ohne Änderung der Funktion
+git commit -m "style: format gps data class"                            --> Änderungen an Formatierung oder Schreibweise ohne Änderung der Logik
+
+
+branches
+
+git switch -c hakl/feat/aenderung
+git switch -c luhe/fix/GPS_class_fix
