@@ -5,7 +5,7 @@ import logging
 class CSVData:
     def __init__(self, csv_file):
         self.csv_file = csv_file
-        self.data = pd.read_csv(csv_file)
+        self.data = pd.read_csv(csv_file, sep=";")
 
         logging.info("CSV-Datei wurde eingelesen.")
 
@@ -17,7 +17,11 @@ class CSVData:
         self.calculate_velocity()
         self.calculate_acceleration()
         self.calculate_gradient()
-        
+        self.calculate_drive_force()
+        self.calculate_drive_power()
+        self.calculate_torque()
+        self.calculate_engine_current()
+
 
 
     def validate(self):
@@ -66,7 +70,7 @@ class CSVData:
     def calculate_time_difference(self):
         """In der Methode wird wird die Zeitdifferenz zwischen den GPS-Daten in Sekunden berechnet."""
 
-        self.data["delta_time"] = self.data["time"].diff.dt.total_seconds()
+        self.data["delta_time"] = self.data["time"].diff().dt.total_seconds()
         self.data["delta_time"] = self.data["delta_time"].fillna(0)
 
         logging.info("Die Deltazeiten wurden berechnet.")
@@ -110,7 +114,7 @@ class CSVData:
 
         self.data["acceleration"] = self.data["velocity"].diff() / self.data["delta_time"].replace(0, np.nan)
 
-        self.data["acceleration"] = self.data["accelaration"].fillna(0)
+        self.data["acceleration"] = self.data["acceleration"].fillna(0)
 
         logging.info("Die Beschleunigungen wurden berechnet.")
     
