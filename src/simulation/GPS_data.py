@@ -126,8 +126,51 @@ class CSVData:
 
         self.data["gradient_percent"] = self.data["gradient"] * 100
 
+        self.data["gradient_angle"] = np.arctan(self.data["gradient"])
+
         logging.info("Die Steigung wurde berechnet.")
 
+
+    def calculate_drive_force(self):
+        """In dieser Methode wird die Antriebskraft berechnet."""
+        mass = 80.0          
+        g  = 9.81            
+        rho = 1.225          
+        cw_a = 0.5625        
+
+
+        self.data["air_force"] = 0.5 * rho * cw_a * self.data["velocity"] ** 2
+
+        self.data["drive_force_raw"] = (mass * self.data["acceleration"]+ mass * g * np.sin(self.data["gradient_angle"])+ self.data["air_force"])
+
+        self.data["drive_force"] = self.data["drive_force_raw"].clip(lower=0)
+
+        logging.info("Antriebskraft wurde berechnet.")
+
+
+    def calculate_drive_power(self):
+        """In dieser Methode wird die Antriebsleistung berechnet."""
+        self.data["drive_power"] = self.data["drive_force"] * self.data["velocity"]
+
+        logging.info("Antriebsleistung wurde berechnet.")
+
     
+    def calculate_torque(self):
+        """In dieser Methode wird das Drehmoment berechnet."""
+        wheel_radius = 34.29 
+
+        self.data["torque"] = self.data["drive_force"] * wheel_radius
+
+        logging.info("Drehmoment wurde berechnet.")
 
 
+    def calculate_engine_current(self):
+        """In dieser Methode wird der Motorstrom berechnet."""
+        motor_constant = 1.5
+
+        self.data["engine_current"] = self.data["torque"] / motor_constant
+
+        logging.info("Motorstrom wurde berechnet.")
+
+
+    
