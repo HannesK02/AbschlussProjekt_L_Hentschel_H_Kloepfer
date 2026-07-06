@@ -17,6 +17,7 @@ class CSVData:
         self.calculate_velocity()
         self.calculate_acceleration()
         self.calculate_gradient()
+        self.smooth_data()
         self.calculate_drive_force()
         self.calculate_drive_power()
         self.calculate_torque()
@@ -159,11 +160,13 @@ class CSVData:
         logging.info("Antriebsleistung wurde berechnet.")
 
     
-    def calculate_torque(self):
+    def calculate_torque(self, wheel_diameter_inch=27):
         """In dieser Methode wird das Drehmoment berechnet."""
-        wheel_radius = 34.29 
 
-        self.data["torque"] = self.data["drive_force"] * wheel_radius
+        wheel_diameter_m = wheel_diameter_inch * 0.0254
+        wheel_radius_m = wheel_diameter_m / 2
+
+        self.data["torque"] = self.data["drive_force"] * wheel_radius_m
 
         logging.info("Drehmoment wurde berechnet.")
 
@@ -176,5 +179,16 @@ class CSVData:
 
         logging.info("Motorstrom wurde berechnet.")
 
-
     
+    def smooth_data(self, window_size=5):
+        """Glättet ausgewählte GPS-Daten mit einem gleitenden Mittelwert."""
+
+        columns_to_smooth = ["velocity", "acceleration", "gradient"]
+
+        for column in columns_to_smooth:
+            if column in self.data.columns:
+                self.data[column + "_raw"] = self.data[column]
+
+                self.data[column] = (self.data[column].rolling(window=window_size, center=True, min_periods=1).mean())
+
+            logging.info("%s wurde geglättet.", column)
