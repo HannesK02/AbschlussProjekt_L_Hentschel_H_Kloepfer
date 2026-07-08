@@ -29,10 +29,14 @@ class BatterySimulation:
             soc_values.append(self.battery.soc)
             voltage_values.append(self.battery.voltage(current=current))
 
-        self.gps_data.data["battery_soc"] = soc_values
-        self.gps_data.data["battery_soc_percent"] = self.gps_data.data["battery_soc"] * 100
-        self.gps_data.data["battery_voltage"] = voltage_values
+        results = pd.DataFrame({
+            "time": self.gps_data.data["time"],
+            self.current_column: self.gps_data.data[self.current_column],
+            "battery_soc": soc_values,
+            "battery_soc_percent": [soc * 100 for soc in soc_values],
+            "battery_voltage": voltage_values,
+        })
 
         logging.info("Akkusimulation wurde abgeschlossen.")
 
-        return self.gps_data.data
+        return results
