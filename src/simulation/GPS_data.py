@@ -192,3 +192,44 @@ class CSVData:
                 self.data[column] = (self.data[column].rolling(window=window_size, center=True, min_periods=1).mean())
 
             logging.info("%s wurde geglättet.", column)
+
+    def total_time(self):
+        """Berechnet die benoetigte Zeit in Sekunden."""
+        return self.data["delta_time"].sum()
+    
+    def average_velocity(self):
+        """Berechnet die Durchschnittsgeschwindigkeit der gesamten Fahrt in km/h."""
+        total_time_h = self.total_time() / 3600
+
+        if total_time_h == 0:
+            return 0
+
+        return self.total_distance() / 1000 / total_time_h
+
+    def total_distance(self):
+        """Berechnet die zurueckgelegte Strecke in Metern."""
+        return self.data["distance"].sum()
+
+
+    def elevation_gain(self):
+        """Berechnet die Hoehenmeter im Anstieg."""
+        return self.data["elevation_difference"].clip(lower=0).sum()
+
+    def elevation_loss(self):
+        """Berechnet die Hoehenmeter im Abstieg."""
+        return abs(self.data["elevation_difference"].clip(upper=0).sum())
+
+    def max_power(self):
+        """Berechnet die maximale Antriebsleistung in Watt."""
+        return self.data["drive_power"].max()
+
+    def summary(self):
+        """Gibt die wichtigsten Kennwerte der gesamten Fahrt zurueck."""
+        return {
+            "Durchschnittsgeschwindigkeit in km/h": self.average_velocity(),
+            "Zurueckgelegte Strecke in m": self.total_distance(),
+            "Benoetigte Zeit in s": self.total_time(),
+            "Hoehenmeter Anstieg in m": self.elevation_gain(),
+            "Hoehenmeter Abstieg in m": self.elevation_loss(),
+            "Maximalleistung in W": self.max_power(),
+        }
