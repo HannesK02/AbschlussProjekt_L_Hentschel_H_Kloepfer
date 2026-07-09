@@ -15,9 +15,9 @@ st.write("Hier kann eine GPS-Datei ausgewertet und der Akkuverbrauch simuliert w
 
 akku_typ = st.selectbox("Akkutyp auswaehlen", ["LiPo", "NMC"])
 
-cell_capacity_Ah = st.number_input("Zellkapazitaet in Ah", value=3)
+cell_capacity_Ah = st.number_input("Zellkapazitaet in Ah", value=4)
 cells_series = 10
-cells_parallel = st.number_input("Zellen parallel", value=6, min_value=1, step=1)
+cells_parallel = st.number_input("Zellen parallel", value=8, min_value=1, step=1)
 
 
 start = st.button("Simulation starten")
@@ -67,4 +67,7 @@ if "results" in st.session_state:
     
     
     st.write("Tourdaten:")
-    st.dataframe(st.session_state.summary)
+    summary = st.session_state.summary
+    summary_rounded = {key: f"{value:.1f}" for key, value in summary.items()}
+
+    st.table(summary_rounded)
