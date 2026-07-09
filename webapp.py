@@ -59,5 +59,12 @@ if start:
 
 
 if "results" in st.session_state:
-    st.success("Simulation abgeschlossen. Die Diagramme findest du links in den Seiten Tourdaten und Akkudaten.")
+    st.success("Simulation abgeschlossen.")
+    
+    st.subheader("Route")
+    route = st.session_state.gps_data.data[["lat", "lon"]]
+    st.map(route)
+    
+    
+    st.write("Tourdaten:")
     st.dataframe(st.session_state.summary)
