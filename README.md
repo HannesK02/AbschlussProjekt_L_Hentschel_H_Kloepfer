@@ -23,5 +23,5 @@ pdm install
 
 Sobald alle Programme installiert wurden, kann die Website über folgenden Befehl aufgerufen werden:
 ```bash
-streamlit run src/webapp.py
+pdm run streamlit run webapp.py
 ```
