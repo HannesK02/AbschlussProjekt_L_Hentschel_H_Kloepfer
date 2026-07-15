@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import logging
 
+logging.basicConfig(level=logging.INFO)
 class CSVData:
     def __init__(self, csv_file):
         self.csv_file = csv_file
