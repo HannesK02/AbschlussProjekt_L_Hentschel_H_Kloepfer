@@ -31,23 +31,23 @@ pip install pdm
 Nun müssen noch alle benötigten Pakete installiert werden. Dafür benötigen wir den Befehl:
 
 ```bash
-pdm install
+python -m pdm install
 ```
 
 ### 4. Webapp starten
 Sobald alle Programme installiert wurden, kann die Website über folgenden Befehl aufgerufen werden:
 ```bash
-pdm run app
+python -m pdm run app
 ```
 
 ### 5. Gegebenenfalls Test ausführen
 Test können über folgende Befehle ausgeführt werden:
 ```bash
-pdm run csv-test
+python -m pdm run csv-test
 ```
 ```bash
-pdm run akku-test
+python -m pdm run akku-test
 ```
 ```bash
-pdm run battery-test
+python -m pdm run battery-test
 ```
