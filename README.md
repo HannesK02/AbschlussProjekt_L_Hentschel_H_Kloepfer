@@ -6,7 +6,7 @@ Dieses Repository enthält die Python-Anwendung zur Auswertung von GPS-Rohdaten,
 
 ## Installation & Voraussetzungen:
 
-Zur Verwaltung der Akkutypen und der virtuellen Umgebung wird in diesem Projekt **PDM (Python Development Master)** verwendet. Dies stellt sicher, dass alle Pakete isoliert und versionsgenau installiert werden.
+Zur Verwaltung der Akkutypen und der virtuellen Umgebung wird in diesem Projekt **PDM (Python Dependency Manager)** verwendet. Dies stellt sicher, dass alle Pakete isoliert und versionsgenau installiert werden.
 
 ### 1. PDM installieren
 Falls PDM noch nicht auf dem Gerät installiert ist, kann es über das Terminal mit folgendem Befehl installiert werden:
@@ -23,5 +23,5 @@ pdm install
 
 Sobald alle Programme installiert wurden, kann die Website über folgenden Befehl aufgerufen werden:
 ```bash
-pdm run streamlit run webapp.py
+pdm run streamlit run Start.py
 ```
