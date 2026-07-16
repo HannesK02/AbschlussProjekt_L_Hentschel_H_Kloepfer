@@ -13,3 +13,9 @@ license = {text = "MIT"}
 
 [tool.pdm]
 distribution = false
+
+[tool.pdm.scripts]
+app = "streamlit run Start.py"
+csv-test = "python -m src.tests.CSV_test"
+akku-test = "python -m src.tests.Akkutest"
+battery-test = "python -m src.tests.BatterySimulation_test"
